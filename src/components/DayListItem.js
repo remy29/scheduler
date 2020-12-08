@@ -12,7 +12,7 @@ export default function DayListItem(props) {
       case 1:
         return "1 spot"
       default: 
-      return `${props.spots} spots`
+        return `${props.spots} spots`
     }
   }
 
