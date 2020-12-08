@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import DayList from "components/DayList.js";
+import DayList from "components/DayList";
+import Appointment from "components/Appointment";
 
 
 import "components/Application.scss";
@@ -41,7 +42,7 @@ const appointments = [
   },
   {
     id: 3,
-    time: "1:30pm",
+    time: "2pm",
     interview: {
       student: "Sam Someguy",
       interviewer: {
@@ -53,11 +54,11 @@ const appointments = [
   },
   {
     id: 4,
-    time: "2pm",
+    time: "3pm",
   },
   {
     id: 5,
-    time: "2:30pm",
+    time: "4pm",
     interview: {
       student: "Bob Mango",
       interviewer: {
@@ -69,6 +70,14 @@ const appointments = [
   },
 ];
 
+const apptMapper = function() {
+  const appointmentsList = appointments.map(appointment => {
+    return (
+      <Appointment key={appointment.id} {...appointment} />
+    );
+  })
+  return appointmentsList;
+}
 
 export default function Application(props) {
 
@@ -97,7 +106,8 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
+        {apptMapper()}
+        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );
