@@ -28,5 +28,6 @@ export function getInterview(state, interview) {
   if (resultObj.student) {
     return resultObj
   }
+  return null;
 };
 
