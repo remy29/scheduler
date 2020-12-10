@@ -1,4 +1,4 @@
-const state = {
+/* const state = {
   days: [
     {
       id: 1,
@@ -40,19 +40,18 @@ const state = {
       avatar: "https://i.imgur.com/Nmx0Qxo.png"
     }
   }
-};
+}; */
 
 
 
 export function getAppointmentsForDay(state, day) {
   const resultArr = [];
-  const appointmentsClone = {...state.appointments}
   const [appointmentIdsForDay] = state.days.filter(currentDay => currentDay.name === day);
   if (appointmentIdsForDay) {
     for (const appointmentId of appointmentIdsForDay.appointments) {
-      for (const appointment in appointmentsClone) {
-        if (appointmentId === appointmentsClone[appointment.toString()].id) {
-          resultArr.push(appointmentsClone[appointment.toString()])
+      for (const appointment in state.appointments) {
+        if (appointmentId === state.appointments[appointment.toString()].id) {
+          resultArr.push(state.appointments[appointment.toString()])
         }
       }
     }
@@ -62,12 +61,11 @@ export function getAppointmentsForDay(state, day) {
 
 export function getInterview(state, interview) {
   const resultObj = { student: null, interviewer: null };
-  const interviewersClone = {...state.interviewers};
   if (interview) {
     resultObj.student = interview.student
-    for (const interviewer in interviewersClone) {
-      if (interviewersClone[`${interviewer}`].id === interview.interviewer) {
-        resultObj.interviewer = interviewersClone[`${interviewer}`]
+    for (const interviewer in state.interviewers) {
+      if (state.interviewers[`${interviewer}`].id === interview.interviewer) {
+        resultObj.interviewer = state.interviewers[`${interviewer}`]
       }
     }
   }
@@ -79,13 +77,12 @@ export function getInterview(state, interview) {
 
 export function getInterviewersForDay(state, day) {
   const resultArr = [];
-  const interviewersClone = {...state.interviewers}
   const [interviewerIdsForDay] = state.days.filter(currentDay => currentDay.name === day);
   if (interviewerIdsForDay) {
     for (const interviewerId of interviewerIdsForDay.interviewers) {
-      for (const interviewer in interviewersClone) {
-        if (interviewerId === interviewersClone[interviewer.toString()].id) {
-          resultArr.push(interviewersClone[interviewer.toString()])
+      for (const interviewer in state.interviewers) {
+        if (interviewerId === state.interviewers[interviewer.toString()].id) {
+          resultArr.push(state.interviewers[interviewer.toString()])
         }
       }
     }
@@ -94,4 +91,4 @@ export function getInterviewersForDay(state, day) {
 };
 
 
-console.log(getInterviewersForDay(state, "Monday"))
+
