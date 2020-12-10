@@ -14,3 +14,19 @@ export function getAppointmentsForDay(state, day) {
   return resultArr;
 };
 
+export function getInterview(state, interview) {
+  const resultObj = { student: null, interviewer: null };
+  const interviewersClone = {...state.interviewers};
+  if (interview) {
+    resultObj.student = interview.student
+    for (const interviewer in interviewersClone) {
+      if (interviewersClone[`${interviewer}`].id === interview.interviewer) {
+        resultObj.interviewer = interviewersClone[`${interviewer}`]
+      }
+    }
+  }
+  if (resultObj.student) {
+    return resultObj
+  }
+};
+
