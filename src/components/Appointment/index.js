@@ -31,8 +31,7 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    transition(SAVE)
-    console.log(name)
+    transition(SAVE);
 
     props.bookInterview(props.id, interview)
     .then(() => {
@@ -42,7 +41,7 @@ export default function Appointment(props) {
   }
 
   function cancel() {
-    transition(CONFIRM)
+    transition(CONFIRM);
   }
 
   function confirm () {

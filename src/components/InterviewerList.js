@@ -3,6 +3,7 @@ import InterviewerListItem from "components/InterviewerListItem.js";
 import "components/InterviewerList.scss";
 
 export default function InterviewerList(props) {
+  
   const interviewerSelector = function (value) {
     if (props.value) {
       if (value.id === props.value.id) {
@@ -15,7 +16,7 @@ export default function InterviewerList(props) {
       return true;
     }
     return false;
-  }
+  };
 
   const interviewerListItems = props.interviewers.map(value => {
    
