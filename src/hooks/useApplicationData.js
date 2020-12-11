@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { getAppointmentsForDay } from "helpers/selectors";
 
 export default function useApplicationData(props) {
   const [state, setState] = useState({
@@ -17,8 +18,30 @@ export default function useApplicationData(props) {
     ]).then((all) => {
       setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data}))
     })
+
   },[])
+
+  function updateSpots(id) {
+    if (id <= 5) {
+      return 0;
+    }
+    if (id <= 10) {
+      return 1;
+    }
+    if (id <= 15) {
+      return 2;
+    }
+    if (id <= 20) {
+      return 3;
+    }
+    if (id <= 25) {
+      return 4;
+    }
+  };
   
+  if (state.days[0]) {
+
+  }
   function bookInterview(id, interview) {
   
     const appointment = {
@@ -29,12 +52,32 @@ export default function useApplicationData(props) {
       ...state.appointments,
       [id]: appointment
     };
-  
+
+    const day = {
+      ...state.days[`${updateSpots(id)}`],
+      spots: state.days[`${updateSpots(id)}`].spots - 1
+    }
+
+    const days = [
+      ...state.days, 
+    ]
+
+    days[`${updateSpots(id)}`] = day
+
     return axios.put(`/api/appointments/${id}`, appointments[`${id}`]).then(() => {
-      setState({
-        ...state,
-        appointments
-      })
+      if (!state.appointments[id].interview) {
+        setState({
+          ...state,
+          appointments,
+          days,
+        })
+      } 
+      else { 
+        setState({
+          ...state,
+          appointments,
+        })
+      }
     })
   };
   
@@ -48,11 +91,23 @@ export default function useApplicationData(props) {
       ...state.appointments,
       [id]: appointment
     };
+
+    const day = {
+      ...state.days[`${updateSpots(id)}`],
+      spots: state.days[`${updateSpots(id)}`].spots + 1
+    }
+
+    const days = [
+      ...state.days, 
+    ]
+
+    days[`${updateSpots(id)}`] = day
   
     return axios.delete(`/api/appointments/${id}`).then(() => {
       setState({
         ...state,
-        appointments
+        appointments,
+        days
       })
     })
   };
