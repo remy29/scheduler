@@ -1,6 +1,7 @@
 import React from "react";
 import "components/Appointment/styles.scss";
 import Empty from "components/Appointment/Empty";
+import Confirm from "components/Appointment/Confirm";
 import Show from "components/Appointment/Show";
 import Header from "components/Appointment/Header";
 import Form from "components/Appointment/Form";
@@ -11,6 +12,8 @@ const EMPTY = "EMPTY";
 const SHOW = "SHOW";
 const CREATE = "CREATE"
 const SAVE = "SAVE"
+const DELETE = "DELETE"
+const CONFIRM = "CONFIRM"
 
 
 export default function Appointment(props) {
@@ -29,6 +32,17 @@ export default function Appointment(props) {
       transition(SHOW);
     })
   }
+
+  function cancel() {
+    transition(CONFIRM)
+  }
+
+  function confirm () {
+    transition(DELETE)
+    props.cancelInterview(props.id).then(() => {
+      transition(EMPTY);
+    })
+  }
   
   return (
     <article className="appointment">
@@ -38,6 +52,7 @@ export default function Appointment(props) {
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
+          onDelete={cancel}
         />
       )}
       {mode === CREATE && (
@@ -48,7 +63,17 @@ export default function Appointment(props) {
         />
       )}
       {mode === SAVE && (
-        <Status message={"Saving"}/>
+        <Status message={"Saving..."}/>
+      )}
+      {mode === DELETE && (
+        <Status message={"Deleting..."}/>
+      )}
+      {mode === CONFIRM && (
+        <Confirm
+          message={"Are you sure?"}
+          onCancel={() => back()}
+          onConfirm={confirm}
+        />
       )}
     </article>
   )
