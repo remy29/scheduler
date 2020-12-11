@@ -1,6 +1,7 @@
 import React from "react";
 import "components/Appointment/styles.scss";
 import Empty from "components/Appointment/Empty";
+import Error from "components/Appointment/Error";
 import Confirm from "components/Appointment/Confirm";
 import Show from "components/Appointment/Show";
 import Header from "components/Appointment/Header";
@@ -15,6 +16,8 @@ const SAVE = "SAVE"
 const DELETE = "DELETE"
 const CONFIRM = "CONFIRM"
 const EDIT = "EDIT"
+const ERROR_SAVE = "ERROR_SAVE"
+const ERROR_DELETE = "ERROR_DELETE"
 
 
 export default function Appointment(props) {
@@ -29,9 +32,11 @@ export default function Appointment(props) {
       interviewer
     };
     transition(SAVE)
-    props.bookInterview(props.id, interview).then(() => {
+    props.bookInterview(props.id, interview)
+    .then(() => {
       transition(SHOW);
     })
+    .catch(error => transition(ERROR_SAVE, true))
   }
 
   function cancel() {
@@ -39,10 +44,12 @@ export default function Appointment(props) {
   }
 
   function confirm () {
-    transition(DELETE)
-    props.cancelInterview(props.id).then(() => {
+    transition(DELETE, true)
+    props.cancelInterview(props.id)
+    .then(() => {
       transition(EMPTY);
     })
+    .catch(error => transition(ERROR_DELETE, true))
   }
   
   return (
@@ -84,6 +91,18 @@ export default function Appointment(props) {
           onCancel={() => back()}
           name={props.interview.student}
           interviewer={props.interview.interviewer}
+        />
+      )}
+      {mode === ERROR_SAVE && (
+        <Error
+          onClose={() => back(true)}
+          message={"Couldnt Save"}
+        />
+      )}
+      {mode === ERROR_DELETE && (
+        <Error
+          onClose={() => back(true)}
+          message={"Couldnt Delete"}
         />
       )}
     </article>
