@@ -56,12 +56,15 @@ export default function useApplicationData() {
 
         days[`${weekdayId}`] = day
 
+        if (state.appointments[action.id].interview) {
+          day.spots = state.days[`${weekdayId}`].spots;
+        }
+
         if (!action.interview) {
           appointment.interview = null;
           day.spots = state.days[`${weekdayId}`].spots + 1;
         }
 
-       
 
         return {
           ...state,
