@@ -1,8 +1,6 @@
 import axios from "axios";
 import { useReducer, useEffect } from "react";
 
-
-
 export default function useApplicationData() {
 
   const SET_DAY = "SET_DAY";
@@ -20,7 +18,7 @@ export default function useApplicationData() {
     switch (action.type) {
 
       case SET_DAY: {
-        state.day = action.day
+        state.day = action.day // try using more copies
         return {...state}
       }
 
@@ -64,8 +62,7 @@ export default function useApplicationData() {
           appointment.interview = null;
           day.spots = state.days[`${weekdayId}`].spots + 1;
         }
-
-
+        
         return {
           ...state,
           appointments,
@@ -124,15 +121,11 @@ export default function useApplicationData() {
     };
 
     return axios.put(`/api/appointments/${id}`, appointments[`${id}`]).then(() => {
-      console.log(`id::: ${id}`)
-      console.log(interview)
-      console.log(appointments[`${id}`])
         dispatch({ type: SET_INTERVIEW, id, interview });
       })
   };
 
   function cancelInterview(id) {
-
     return axios.delete(`/api/appointments/${id}`).then(() => {
       dispatch({ type: SET_INTERVIEW, id, interview: null });
     })

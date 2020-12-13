@@ -31,12 +31,12 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
+
     transition(SAVE);
 
-    props.bookInterview(props.id, interview)
-    .then(() => {
-      transition(SHOW);
-    })
+    props
+    .bookInterview(props.id, interview)
+    .then(() => transition(SHOW))
     .catch(error => transition(ERROR_SAVE, true))
   }
 
@@ -44,12 +44,13 @@ export default function Appointment(props) {
     transition(CONFIRM);
   }
 
-  function confirm () {
+  function confirm(event) {
+
     transition(DELETE, true)
-    props.cancelInterview(props.id)
-    .then(() => {
-      transition(EMPTY);
-    })
+
+    props
+    .cancelInterview(props.id)
+    .then(() => transition(EMPTY))
     .catch(error => transition(ERROR_DELETE, true))
   }
   
@@ -96,14 +97,14 @@ export default function Appointment(props) {
       )}
       {mode === ERROR_SAVE && (
         <Error
-          onClose={() => back(true)}
-          message={"Couldnt Save"}
+          onClose={() => back(2)}
+          message={"Something went wrong! Couldn't save the appointment"}
         />
       )}
       {mode === ERROR_DELETE && (
         <Error
-          onClose={() => back(true)}
-          message={"Couldnt Delete"}
+          onClose={() => back(3)}
+          message={"Something went wrong! Couldn't delete the appointment"}
         />
       )}
     </article>
