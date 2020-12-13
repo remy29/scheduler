@@ -97,13 +97,13 @@ export default function Appointment(props) {
       )}
       {mode === ERROR_SAVE && (
         <Error
-          onClose={() => back(2)}
+          onClose={() => back()}
           message={"Something went wrong! Couldn't save the appointment"}
         />
       )}
       {mode === ERROR_DELETE && (
         <Error
-          onClose={() => back(3)}
+          onClose={() => back()}
           message={"Something went wrong! Couldn't delete the appointment"}
         />
       )}
