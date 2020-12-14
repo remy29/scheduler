@@ -21,3 +21,8 @@ npm test
 ```sh
 npm run storybook
 ```
+
+todo: 
+1. comments
+2. lint
+3. const the functions

@@ -15,18 +15,20 @@ export default function useApplicationData() {
   });
 
   function reducer(state, action) {
+    const newState = {day: state.day, days: [...state.days], appointments: {...state.appointments}, interviewers: {...state.interviewers}};
+    
     switch (action.type) {
 
       case SET_DAY: {
-        state.day = action.day // try using more copies
-        return {...state}
+        newState.day = action.day 
+        return newState
       }
 
       case SET_APPLICATION_DATA: {
-        state.days = action.days
-        state.appointments = action.appointments
-        state.interviewers = action.interviewers
-        return {...state}
+        newState.days = action.days;
+        newState.appointments = action.appointments;
+        newState.interviewers = action.interviewers;
+        return newState;
       }
 
       case SET_INTERVIEW: {
@@ -52,7 +54,7 @@ export default function useApplicationData() {
           ...state.days,
         ]
 
-        days[`${weekdayId}`] = day
+        days[`${weekdayId}`] = day;
 
         if (state.appointments[action.id].interview) {
           day.spots = state.days[`${weekdayId}`].spots;
@@ -64,7 +66,7 @@ export default function useApplicationData() {
         }
         
         return {
-          ...state,
+          ...newState,
           appointments,
           days,
         }
