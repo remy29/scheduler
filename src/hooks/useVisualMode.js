@@ -9,8 +9,7 @@ export default function useVisualMode(initial) {
       if (replace) {
         newHistory.pop();
       } 
-      newHistory.push(newMode)
-      return newHistory;
+      return [...newHistory, newMode];
     });
   };
 
