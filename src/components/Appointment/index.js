@@ -81,6 +81,7 @@ export default function Appointment(props) {
           interviewers={props.interviewers}
           onSave={save}
           onCancel={() => back()}
+          onError={selectionError}
         />
       )}
       {mode === SAVE && (
@@ -116,6 +117,18 @@ export default function Appointment(props) {
         <Error
           onClose={() => back()}
           message={"Something went wrong! Couldn't delete the appointment"}
+        />
+      )}
+      {mode === ERROR_NAME && (
+        <Error
+          onClose={() => back()}
+          message={"You forgot to put in a name!"}
+        />
+      )}
+      {mode === ERROR_INTERVIEWER && (
+        <Error
+          onClose={() => back()}
+          message={"You forgot to select an interviewer!"}
         />
       )}
     </article>
