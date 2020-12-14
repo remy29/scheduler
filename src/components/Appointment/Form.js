@@ -19,6 +19,12 @@ export default function Form(props) {
   }
 
   const save = function () {
+    if(!name) {
+      props.onError("Did not enter a name!")
+    }
+    if(!interviewer) {
+      props.onError("Did not select an interviewer!");
+    }
     props.onSave(name, interviewer);
   }
 
