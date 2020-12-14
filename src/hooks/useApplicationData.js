@@ -15,7 +15,13 @@ export default function useApplicationData() {
   });
 
   function reducer(state, action) {
-    const newState = {day: state.day, days: [...state.days], appointments: {...state.appointments}, interviewers: {...state.interviewers}};
+
+    const newState = {
+      day: state.day, 
+      days: [...state.days], 
+      appointments: {...state.appointments}, 
+      interviewers: {...state.interviewers}
+    };
     
     switch (action.type) {
 
@@ -32,6 +38,7 @@ export default function useApplicationData() {
       }
 
       case SET_INTERVIEW: {
+
         const weekdayId = updateSpots(action.id)
 
       
@@ -122,7 +129,7 @@ export default function useApplicationData() {
       [id]: appointment
     };
 
-    return axios.put(`/api/appointments/${id}`, appointments[`${id}`]).then(() => {
+    return axios.put(`/api/appointments/${id}`, appointments[id]).then(() => {
         dispatch({ type: SET_INTERVIEW, id, interview });
       })
   };
