@@ -18,9 +18,6 @@ const CONFIRM = "CONFIRM"
 const EDIT = "EDIT"
 const ERROR_SAVE = "ERROR_SAVE"
 const ERROR_DELETE = "ERROR_DELETE"
-const ERROR_NAME = "ERROR_NAME"
-const ERROR_INTERVIEWER = "ERROR_INTERVIEWER"
-
 
 export default function Appointment(props) {
 
@@ -55,14 +52,6 @@ export default function Appointment(props) {
     .then(() => transition(EMPTY))
     .catch(error => transition(ERROR_DELETE, true))
   }
-
-  function selectionError(missed) {
-    if (missed === "name") {
-      transition(ERROR_NAME);
-      return;
-    }
-    transition(ERROR_INTERVIEWER);
-  }
   
   return (
     <article className="appointment">
@@ -81,7 +70,6 @@ export default function Appointment(props) {
           interviewers={props.interviewers}
           onSave={save}
           onCancel={() => back()}
-          onError={selectionError}
         />
       )}
       {mode === SAVE && (
@@ -102,7 +90,6 @@ export default function Appointment(props) {
           interviewers={props.interviewers}
           onSave={save}
           onCancel={() => back()}
-          onError={selectionError}
           name={props.interview.student}
           interviewer={props.interview.interviewer}
         />
@@ -117,18 +104,6 @@ export default function Appointment(props) {
         <Error
           onClose={() => back()}
           message={"Something went wrong! Couldn't delete the appointment"}
-        />
-      )}
-      {mode === ERROR_NAME && (
-        <Error
-          onClose={() => back()}
-          message={"You forgot to put in a name!"}
-        />
-      )}
-      {mode === ERROR_INTERVIEWER && (
-        <Error
-          onClose={() => back()}
-          message={"You forgot to select an interviewer!"}
         />
       )}
     </article>
