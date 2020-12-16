@@ -39,11 +39,7 @@ export default function Appointment(props) {
     .catch(error => transition(ERROR_SAVE, true))
   }
 
-  function cancel() {
-    transition(CONFIRM);
-  }
-
-  function confirm(event) {
+  function confirm() {
 
     transition(DELETE, true)
 
@@ -61,7 +57,7 @@ export default function Appointment(props) {
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
-          onDelete={cancel}
+          onDelete={() => transition(CONFIRM)}
           onEdit={() => transition(EDIT)}
         />
       )}
