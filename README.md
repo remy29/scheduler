@@ -7,7 +7,7 @@ Simple scheduler app. Lighthouse labs student projects exploring how to use Reac
 ## Screenshots
 
 ### Main Page
-<img src = "">
+<img src = "https://github.com/remy29/scheduler/blob/master/public/images/screenshots/main.png?raw=true">
 
 ## Stack
 - React
@@ -40,8 +40,7 @@ npm test
 ```sh
 npm run storybook
 ```
-<h1 style = "text-align: center">Tadoo!</h1>
-<h4 style = "text-align: center;"><em>Do you tadoo?</em></h2>
+
 
 
 
