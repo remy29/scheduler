@@ -1,5 +1,24 @@
 # Interview Scheduler
 
+## About
+
+Simple scheduler app. Lighthouse labs student projects exploring how to use React front end UI library and various development environments such as Storybook and Webpack. Uses Jest and Cypress for extensive testing. 
+
+## Screenshots
+
+### Main Page
+<img src = "">
+
+## Stack
+- React
+- SCSS
+- Javascript
+- Jest
+- Cypress
+- Storybook 
+- Axios
+- Webpack 
+
 ## Setup
 
 Install dependencies with `npm install`.
@@ -21,8 +40,10 @@ npm test
 ```sh
 npm run storybook
 ```
+<h1 style = "text-align: center">Tadoo!</h1>
+<h4 style = "text-align: center;"><em>Do you tadoo?</em></h2>
 
-todo: 
-1. comments
-2. lint
-3. const the functions
+
+
+
+
