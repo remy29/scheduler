@@ -20,14 +20,6 @@ export default function Form(props) {
 
   // catches user input errors
   function validate() {
-    if (!name && !interviewer) {
-      setError("You havent specified a name or interviewer!");
-      return;
-    };
-    if (!interviewer) {
-      setError("You must choose an interviewer");
-      return;
-    };
     if (!name) {
       setError("Student name cannot be blank");
       return;
