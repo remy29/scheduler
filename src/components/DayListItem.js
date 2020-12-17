@@ -4,14 +4,14 @@ import "components/DayListItem.scss";
 import classnames from "classnames";
 
 export default function DayListItem(props) {
-  const formatSpots = function (props) {
+  const formatSpots = function(props) {
     switch (props.spots) {
-      case 0:
-        return "no spots";
-      case 1:
-        return "1 spot";
-      default:
-        return `${props.spots} spots`;
+    case 0:
+      return "no spots";
+    case 1:
+      return "1 spot";
+    default:
+      return `${props.spots} spots`;
     }
   };
 

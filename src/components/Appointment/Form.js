@@ -7,12 +7,12 @@ export default function Form(props) {
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
   const [error, setError] = useState("");
 
-  const reset = function () {
+  const reset = function() {
     setName("");
     setInterviewer(null);
   };
 
-  const cancel = function () {
+  const cancel = function() {
     reset();
     props.onCancel();
   };

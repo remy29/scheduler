@@ -35,59 +35,59 @@ export default function reducer(state, action) {
   };
 
   switch (action.type) {
-    case SET_DAY: {
-      newState.day = action.day;
-      return newState;
+  case SET_DAY: {
+    newState.day = action.day;
+    return newState;
+  }
+
+  case SET_APPLICATION_DATA: {
+    newState.days = action.days;
+    newState.appointments = action.appointments;
+    newState.interviewers = action.interviewers;
+    return newState;
+  }
+
+  case SET_INTERVIEW: {
+    const weekdayId = updateSpots(action.id);
+
+    const appointment = {
+      ...state.appointments[action.id],
+      interview: { ...action.interview },
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [action.id]: appointment,
+    };
+
+    const day = {
+      ...state.days[`${weekdayId}`],
+      spots: state.days[`${weekdayId}`].spots - 1,
+    };
+
+    const days = [...state.days];
+
+    days[`${weekdayId}`] = day;
+
+    if (state.appointments[action.id].interview) {
+      day.spots = state.days[`${weekdayId}`].spots;
     }
 
-    case SET_APPLICATION_DATA: {
-      newState.days = action.days;
-      newState.appointments = action.appointments;
-      newState.interviewers = action.interviewers;
-      return newState;
+    if (!action.interview) {
+      appointment.interview = null;
+      day.spots = state.days[`${weekdayId}`].spots + 1;
     }
 
-    case SET_INTERVIEW: {
-      const weekdayId = updateSpots(action.id);
-
-      const appointment = {
-        ...state.appointments[action.id],
-        interview: { ...action.interview },
-      };
-
-      const appointments = {
-        ...state.appointments,
-        [action.id]: appointment,
-      };
-
-      const day = {
-        ...state.days[`${weekdayId}`],
-        spots: state.days[`${weekdayId}`].spots - 1,
-      };
-
-      const days = [...state.days];
-
-      days[`${weekdayId}`] = day;
-
-      if (state.appointments[action.id].interview) {
-        day.spots = state.days[`${weekdayId}`].spots;
-      }
-
-      if (!action.interview) {
-        appointment.interview = null;
-        day.spots = state.days[`${weekdayId}`].spots + 1;
-      }
-
-      return {
-        ...newState,
-        appointments,
-        days,
-      };
-    }
-    default:
-      throw new Error(
-        `Tried to reduce with unsupported action type: ${action.type}`
-      );
+    return {
+      ...newState,
+      appointments,
+      days,
+    };
+  }
+  default:
+    throw new Error(
+      `Tried to reduce with unsupported action type: ${action.type}`
+    );
   }
 }
 

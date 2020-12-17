@@ -4,7 +4,7 @@ import "components/InterviewerList.scss";
 import PropTypes from "prop-types";
 
 export default function InterviewerList(props) {
-  const interviewerSelector = function (value) {
+  const interviewerSelector = function(value) {
     if (props.value) {
       if (value.id === props.value.id) {
         props.onChange(value.id);
