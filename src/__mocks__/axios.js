@@ -1,3 +1,4 @@
+// Mock data for axios server request mock function
 const fixtures = {
   days: [
     {
@@ -53,6 +54,8 @@ const fixtures = {
   },
 };
 
+// Mock url routes and server responses for jest tests
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
   get: jest.fn((url) => {
     if (url === "/api/days") {
@@ -82,7 +85,7 @@ export default {
       });
     }
   }),
-
+  // Handles put requests
   put: jest.fn((url) => {
     if (url === "/api/appointments/1") {
       return Promise.resolve({
@@ -97,7 +100,8 @@ export default {
       });
     }
   }),
-
+  
+  // Handles delete requests
   delete: jest.fn((url) => {
     if (url === "/api/appointments/1") {
       return Promise.resolve({

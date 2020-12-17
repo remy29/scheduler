@@ -10,6 +10,7 @@ import {
 } from "helpers/selectors";
 
 export default function Application(props) {
+  //destructures  object returned by useApplicationData custom hook
   const {
     state,
     setDay,
@@ -17,8 +18,9 @@ export default function Application(props) {
     cancelInterview,
   } = useApplicationData();
 
+  // Gets array of interviewers available for the day
   const dailyInterviewers = getInterviewersForDay(state, state.day);
-
+  // gets day's current appointments
   const dailyAppointments = getAppointmentsForDay(state, state.day).map(
     (appointment) => {
       return (
@@ -33,7 +35,7 @@ export default function Application(props) {
       );
     }
   );
-
+  // Renders main application layout
   return (
     <main className="layout">
       <section className="sidebar">

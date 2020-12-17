@@ -20,13 +20,15 @@ import Application from "components/Application";
 afterEach(cleanup);
 
 describe("Application", () => {
+
   it("changes the schedule when a new day is selected", async() => {
+    //Renders app
     const { getByText } = render(<Application />);
-
+    // uses Async/Await to wait for element with text monday to appear
     await waitForElement(() => getByText("Monday"));
-
+    // clicks element with text "Tuesday"
     fireEvent.click(getByText("Tuesday"));
-
+    // Checks that page change was successful 
     expect(getByText("Leopold Silvers")).toBeInTheDocument();
   });
 
@@ -34,27 +36,29 @@ describe("Application", () => {
     const { container } = render(<Application />);
 
     await waitForElement(() => getByText(container, "Archie Cohen"));
-
+    // Creats container for all the appointments 
     const appointments = getAllByTestId(container, "appointment");
+    // Assigns first appointment in returned array
     const appointment = appointments[0];
-
+    // Clicks add button
     fireEvent.click(getByAltText(appointment, "Add"));
-
+    // Types in name
     fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
       target: { value: "Lydia Miller-Jones" },
     });
-
+    // Selects intervier
     fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
+    // Clicks save
     fireEvent.click(getByText(appointment, "Save"));
-
+    // Checks that async loader is displayed
     expect(getByText(appointment, "Saving...")).toBeInTheDocument();
-
+    // Checks if new appointment is there
     await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
-
+    // finds element displaying Monday
     const day = getAllByTestId(container, "day").find((day) =>
       queryByText(day, "Monday")
     );
-
+    // checks that that element also displays correct text
     expect(getByText(day, "no spots remaining")).toBeInTheDocument();
   });
 
@@ -128,7 +132,7 @@ describe("Application", () => {
 
     expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
   });
-
+  // test follows same patterns as other tests in file
   it("shows the save error when failing to save an appointment", async() => {
     axios.put.mockRejectedValueOnce();
 
@@ -157,7 +161,7 @@ describe("Application", () => {
 
     fireEvent.click(queryByAltText(appointment, "Close"));
 
-    // 4. Check that the save button is shown meaning it went back to form
+    // Check that the save button is shown meaning it went back to form
     expect(getByText(appointment, "Save")).toBeInTheDocument();
   });
 
@@ -193,7 +197,7 @@ describe("Application", () => {
 
     fireEvent.click(queryByAltText(appointment, "Close"));
 
-    // 4. Check that the save button is shown meaning it went back to form
+    // 6. Check that the save button is shown meaning it went back to form
     expect(getByText(appointment, "Archie Cohen")).toBeInTheDocument();
   });
 });

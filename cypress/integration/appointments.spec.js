@@ -46,9 +46,9 @@ describe("Appointments", () => {
 
     cy.contains("Confirm").click();
 
-    cy.contains("Deleting").should("exist"); // Checks 
-    cy.contains("Deleting").should("not.exist");
+    cy.contains("Deleting").should("exist"); // Checks that async loader is shown
+    cy.contains("Deleting").should("not.exist"); // Checks that loader leaves
 
-    cy.contains(".appointment__card--show", "Archie Cohen").should("not.exist");
+    cy.contains(".appointment__card--show", "Archie Cohen").should("not.exist"); // confirms delete was succesfull
   });
 });

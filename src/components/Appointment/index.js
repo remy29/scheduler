@@ -20,24 +20,27 @@ const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
 export default function Appointment(props) {
+  // destructures returned object from useVisual mode custom hook
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
 
+  // Saves appointment to server
   function save(name, interviewer) {
+    // makes interview object from arguments
     const interview = {
       student: name,
       interviewer,
     };
-
+    // calls transition function with new mode
     transition(SAVE);
 
     props
-      .bookInterview(props.id, interview)
+      .bookInterview(props.id, interview) // see application component
       .then(() => transition(SHOW))
       .catch((error) => transition(ERROR_SAVE, true));
   }
-
+  // Deletes appointment from server on confirm
   function confirm() {
     transition(DELETE, true);
 
@@ -46,7 +49,7 @@ export default function Appointment(props) {
       .then(() => transition(EMPTY))
       .catch((error) => transition(ERROR_DELETE, true));
   }
-
+  // Displays appropriate sub-component depending on current mode
   return (
     <article data-testid="appointment" className="appointment">
       <Header time={props.time} />

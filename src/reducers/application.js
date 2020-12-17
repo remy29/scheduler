@@ -1,3 +1,4 @@
+// Reduces appointment id to day id to know which day to assign it to
 function updateSpots(id) {
   if (id <= 5) {
     return 0;
@@ -15,18 +16,19 @@ function updateSpots(id) {
     return 4;
   }
 }
-
+// Reducer argumetns
 const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
 
 export default function reducer(state, action) {
+  // error catch
   if (JSON.stringify(state) === "{}") {
     throw new Error(
       `Tried to reduce with unsupported action type: ${action.type}`
     );
   }
-
+  // deep object copy of newState
   const newState = {
     day: state.day,
     days: [...state.days],
@@ -35,11 +37,12 @@ export default function reducer(state, action) {
   };
 
   switch (action.type) {
+  // Sets day in state
   case SET_DAY: {
     newState.day = action.day;
     return newState;
   }
-
+  // sets state variables to render page 
   case SET_APPLICATION_DATA: {
     newState.days = action.days;
     newState.appointments = action.appointments;
@@ -62,7 +65,7 @@ export default function reducer(state, action) {
 
     const day = {
       ...state.days[`${weekdayId}`],
-      spots: state.days[`${weekdayId}`].spots - 1,
+      spots: state.days[`${weekdayId}`].spots - 1, // reduces available spots when appointment is booked
     };
 
     const days = [...state.days];
@@ -70,12 +73,12 @@ export default function reducer(state, action) {
     days[`${weekdayId}`] = day;
 
     if (state.appointments[action.id].interview) {
-      day.spots = state.days[`${weekdayId}`].spots;
+      day.spots = state.days[`${weekdayId}`].spots; // makes sure spots availble stays the same after edit 
     }
 
     if (!action.interview) {
       appointment.interview = null;
-      day.spots = state.days[`${weekdayId}`].spots + 1;
+      day.spots = state.days[`${weekdayId}`].spots + 1; // increases spots availble after cancel
     }
 
     return {

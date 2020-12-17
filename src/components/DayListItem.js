@@ -2,8 +2,9 @@ import React from "react";
 
 import "components/DayListItem.scss";
 import classnames from "classnames";
-
+// Renders individual day list items
 export default function DayListItem(props) {
+  // Returns formated spots available blurb
   const formatSpots = function(props) {
     switch (props.spots) {
     case 0:
@@ -14,7 +15,7 @@ export default function DayListItem(props) {
       return `${props.spots} spots`;
     }
   };
-
+  // assigns class bases on props
   const listItemClass = classnames("day-list__item", {
     "day-list__item--selected": props.selected,
     "day-list__item--full": props.spots === 0,

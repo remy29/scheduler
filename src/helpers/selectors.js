@@ -1,3 +1,4 @@
+// Helper functions that use the state and an argument to filter through state object and return query 
 export function getAppointmentsForDay(state, day) {
   const resultArr = [];
   const [appointmentIdsForDay] = state.days.filter(

@@ -7,13 +7,14 @@ import reducer, {
 } from "reducers/application";
 
 export default function useApplicationData() {
+  // insitializes State
   const [state, dispatch] = useReducer(reducer, {
     day: "Monday",
     days: [],
     appointments: {},
     interviewers: {},
   });
-
+  // Makes api calls to fetch data from database, sets the state
   useEffect(() => {
     Promise.all([
       axios.get("/api/days"),
@@ -31,7 +32,7 @@ export default function useApplicationData() {
       });
     });
   }, []);
-
+  // Makes api call to put route to book an interview
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
@@ -47,13 +48,13 @@ export default function useApplicationData() {
       dispatch({ type: SET_INTERVIEW, id, interview });
     });
   }
-
+  // Makes api call to delete route to cancel an interview
   function cancelInterview(id) {
     return axios.delete(`/api/appointments/${id}`).then(() => {
       dispatch({ type: SET_INTERVIEW, id, interview: null });
     });
   }
-
+  // set day functions updates the day state
   const setDay = (day) => dispatch({ type: SET_DAY, day });
 
   return { state, setDay, cancelInterview, bookInterview };

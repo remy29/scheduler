@@ -7,7 +7,7 @@ import { render, cleanup } from "@testing-library/react";
 import Form from "components/Appointment/Form";
 
 afterEach(cleanup);
-
+// tests for various functions in form component. Follows mostly same patterns as other test files in folder
 describe("Form", () => {
   const interviewers = [
     {
