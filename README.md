@@ -18,6 +18,7 @@ Simple scheduler app. Lighthouse labs student projects exploring how to use Reac
 - Storybook 
 - Axios
 - Webpack 
+- Babel 
 
 ## Setup
 
