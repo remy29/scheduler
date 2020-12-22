@@ -28,7 +28,6 @@ export default function Form(props) {
     if (!interviewer) {
       setError("Please pick an interviewer");
       return;
-
     }
 
     setError(""); //resets error state when there is not user error
