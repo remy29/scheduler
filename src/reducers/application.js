@@ -51,8 +51,6 @@ export default function reducer(state, action) {
   }
 
   case SET_INTERVIEW: {
-    console.log(action)
-
     const weekdayId = updateSpots(action.id);
 
     const appointment = {
@@ -67,7 +65,7 @@ export default function reducer(state, action) {
 
     const day = {
       ...state.days[`${weekdayId}`],
-      spots: state.days[`${weekdayId}`].spots, // reduces available spots when appointment is booked
+      spots: state.days[`${weekdayId}`].spots - 1, // reduces available spots when appointment is booked
     };
 
     const days = [...state.days];
@@ -75,7 +73,6 @@ export default function reducer(state, action) {
     days[`${weekdayId}`] = day;
 
     if (state.appointments[action.id].interview) {
-      console.log('bing')
       day.spots = state.days[`${weekdayId}`].spots; // makes sure spots availble stays the same after edit 
     }
 
@@ -83,11 +80,6 @@ export default function reducer(state, action) {
       appointment.interview = null;
       day.spots = state.days[`${weekdayId}`].spots + 1; // increases spots availble after cancel
     }
-
-    if (action.interview) {
-      day.spots = state.days[`${weekdayId}`].spots - 1; // increases spots availble after booking
-    }
-    console.log(action.edit)
 
     return {
       ...newState,
