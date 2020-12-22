@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "components/Appointment/styles.scss";
 import Empty from "components/Appointment/Empty";
 import Error from "components/Appointment/Error";
@@ -24,6 +24,15 @@ export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
+
+/*   useEffect(() => {
+    if (props.interview && mode === EMPTY) {
+     transition(SHOW);
+    }
+    if (props.interview === null && mode === SHOW) {
+     transition(EMPTY);
+    }
+   }, [props.interview, transition, mode]); */
 
   // Saves appointment to server
   function save(name, interviewer) {
@@ -80,7 +89,7 @@ export default function Appointment(props) {
           onSave={save}
           onCancel={back}
           name={props.interview.student}
-          interviewer={props.interview.interviewer}
+          value={props.interview.interviewer}
         />
       )}
       {mode === ERROR_SAVE && (

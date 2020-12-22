@@ -5,14 +5,14 @@ import Button from "components/Button.js";
 export default function Form(props) {
   // sets name, interviewer, and error states, has defaults.
   const [name, setName] = useState(props.name || "");
-  const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const [interviewer, setInterviewer] = useState(props.value || null);
   const [error, setError] = useState("");
   // clears name and interviewer state after cancel
   const reset = function() {
     setName("");
     setInterviewer(null);
   };
-  // rests calls onCancel prop
+  // resets, calls onCancel prop
   const cancel = function() {
     reset();
     props.onCancel();
@@ -24,9 +24,13 @@ export default function Form(props) {
       setError("Student name cannot be blank");
       return;
     }
-
     setError(""); //resets error state when there is not user error
-    props.onSave(name, interviewer);
+    if (interviewer && interviewer.id) {
+      props.onSave(name, interviewer.id);
+    } 
+    else {
+      props.onSave(name, interviewer);
+    }
   }
   // returns Form Appointment sub-component
   return (
@@ -49,7 +53,7 @@ export default function Form(props) {
         <InterviewerList
           interviewers={props.interviewers}
           value={interviewer}
-          onChange={setInterviewer}
+          setInterviewer = {setInterviewer}
         />
       </section>
       <section className="appointment__card-right">

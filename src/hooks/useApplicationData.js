@@ -6,7 +6,19 @@ import reducer, {
   SET_DAY,
 } from "reducers/application";
 
+
 export default function useApplicationData() {
+
+  useEffect(() => {
+    const webSocket = new WebSocket("ws://localhost:8001", "protocol");
+    webSocket.onopen = function () {
+      webSocket.send("ping");
+    }
+    webSocket.onmessage = function (event) {
+      console.log(`Message Received: ${event.data}`);
+    }
+  }, []);
+  
   // insitializes State
   const [state, dispatch] = useReducer(reducer, {
     day: "Monday",

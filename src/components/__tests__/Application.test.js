@@ -119,6 +119,9 @@ describe("Application", () => {
       target: { value: "Buck Jones" },
     });
 
+    // Selects interviewer
+    fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
+
     // 5. Click the "Save" button on the confirmation.
     fireEvent.click(getByText(appointment, "Save"));
 

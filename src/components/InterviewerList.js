@@ -5,28 +5,28 @@ import PropTypes from "prop-types";
 // Maps InterviewerListItems components into list
 export default function InterviewerList(props) {
   // Makes sure selected interviewer stays selected 
+  
   const interviewerSelector = function(value) {
-    if (props.value) {
-      if (value.id === props.value.id) {
-        props.onChange(value.id);
-        return true;
-      }
-    }
-    if (value.id === props.value) {
-      props.onChange(value.id);
+   
+    if (value === props.value) {
       return true;
     }
+
+    if (value.id === props.value) {
+      return true;
+    }
+
     return false;
   };
 
-  const interviewerListItems = props.interviewers.map((value) => {
+  const interviewerListItems = props.interviewers.map((interviewer) => {
     return (
       <InterviewerListItem
-        key={value.id}
-        name={value.name}
-        avatar={value.avatar}
-        selected={interviewerSelector(value)}
-        setInterviewer={() => props.onChange(value.id)}
+        key={interviewer.id}
+        name={interviewer.name}
+        avatar={interviewer.avatar}
+        selected={interviewerSelector(interviewer)}
+        setInterviewer={() => props.setInterviewer(interviewer.id)}
       />
     );
   });
