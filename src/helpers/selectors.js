@@ -7,8 +7,8 @@ export function getAppointmentsForDay(state, day) {
   if (appointmentIdsForDay) {
     for (const appointmentId of appointmentIdsForDay.appointments) {
       for (const appointment in state.appointments) {
-        if (appointmentId === state.appointments[appointment.toString()].id) {
-          resultArr.push(state.appointments[appointment.toString()]);
+        if (appointmentId === state.appointments[appointment].id) {
+          resultArr.push(state.appointments[appointment]);
         }
       }
     }
@@ -21,8 +21,8 @@ export function getInterview(state, interview) {
   if (interview) {
     resultObj.student = interview.student;
     for (const interviewer in state.interviewers) {
-      if (state.interviewers[`${interviewer}`].id === interview.interviewer) {
-        resultObj.interviewer = state.interviewers[`${interviewer}`];
+      if (state.interviewers[interviewer].id === interview.interviewer) {
+        resultObj.interviewer = state.interviewers[interviewer];
       }
     }
   }
