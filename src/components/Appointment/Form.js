@@ -23,10 +23,15 @@ export default function Form(props) {
     if (!name) {
       setError("Student name cannot be blank");
       return;
-    }
 
+    }
     setError(""); //resets error state when there is not user error
-    props.onSave(name, interviewer);
+    if (interviewer && interviewer.id) {
+      props.onSave(name, interviewer.id)
+    }
+    else {
+      props.onSave(name, interviewer);
+    }
   }
   // returns Form Appointment sub-component
   return (

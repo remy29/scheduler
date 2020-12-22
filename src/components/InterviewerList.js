@@ -8,12 +8,10 @@ export default function InterviewerList(props) {
   const interviewerSelector = function(value) {
     if (props.value) {
       if (value.id === props.value.id) {
-        props.onChange(value.id);
         return true;
       }
     }
     if (value.id === props.value) {
-      props.onChange(value.id);
       return true;
     }
     return false;
