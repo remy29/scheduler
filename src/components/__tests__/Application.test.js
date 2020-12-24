@@ -30,6 +30,7 @@ describe("Application", () => {
     fireEvent.click(getByText("Tuesday"));
     // Checks that page change was successful 
     expect(getByText("Leopold Silvers")).toBeInTheDocument();
+<<<<<<< HEAD
   });
 
   it("loads data, books an interview and reduces the spots remaining for Monday by 1", async() => {
@@ -96,6 +97,9 @@ describe("Application", () => {
 
     expect(getByText(day, "2 spots remaining")).toBeInTheDocument();
   });
+=======
+  });  
+>>>>>>> features/websockets
 
   it("loads data, edits an interview and keeps the spots remaining for Monday the same", async() => {
     // 1. Render the Application.

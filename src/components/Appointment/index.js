@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "components/Appointment/styles.scss";
 import Empty from "components/Appointment/Empty";
 import Error from "components/Appointment/Error";
@@ -25,6 +25,15 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
+  useEffect(() => {
+    if (props.interview && mode === EMPTY) {
+     transition(SHOW);
+    }
+    if (props.interview === null && mode === SHOW) {
+     transition(EMPTY);
+    }
+   }, [props.interview, transition, mode]);
+
   // Saves appointment to server
   function save(name, interviewer) {
     // makes interview object from arguments
@@ -40,6 +49,7 @@ export default function Appointment(props) {
       .then(() => transition(SHOW))
       .catch((error) => transition(ERROR_SAVE, true));
   }
+
   // Deletes appointment from server on confirm
   function confirm() {
     transition(DELETE, true);
@@ -54,7 +64,7 @@ export default function Appointment(props) {
     <article data-testid="appointment" className="appointment">
       <Header time={props.time} />
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && (
+      {mode === SHOW && props.interview && (
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
@@ -80,7 +90,7 @@ export default function Appointment(props) {
           onSave={save}
           onCancel={back}
           name={props.interview.student}
-          interviewer={props.interview.interviewer}
+          value={props.interview.interviewer}
         />
       )}
       {mode === ERROR_SAVE && (
