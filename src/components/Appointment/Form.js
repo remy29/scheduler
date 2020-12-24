@@ -30,16 +30,9 @@ export default function Form(props) {
       return;
     }
     setError(""); //resets error state when there is not user error
-<<<<<<< HEAD
-
-    if (interviewer && interviewer.id) {
-      props.onSave(name, interviewer.id)
-    }
-=======
     if (interviewer && interviewer.id) {
       props.onSave(name, interviewer.id);
     } 
->>>>>>> features/websockets
     else {
       props.onSave(name, interviewer);
     }

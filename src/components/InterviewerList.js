@@ -7,16 +7,9 @@ export default function InterviewerList(props) {
   // Makes sure selected interviewer stays selected 
   
   const interviewerSelector = function(value) {
-<<<<<<< HEAD
-    if (props.value) {
-      if (value.id === props.value.id) {
-        return true;
-      }
-=======
    
     if (value === props.value) {
       return true;
->>>>>>> features/websockets
     }
 
     if (value.id === props.value) {
