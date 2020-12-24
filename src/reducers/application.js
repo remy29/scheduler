@@ -38,10 +38,10 @@ export default function reducer(state, action) {
 
   switch (action.type) {
   // Sets day in state
-  case SET_DAY: {
+  /* case SET_DAY: {
     newState.day = action.day;
     return newState;
-  }
+  } */
   // sets state variables to render page 
   case SET_APPLICATION_DATA: {
     newState.days = action.days;
