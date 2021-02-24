@@ -2,7 +2,7 @@
 
 ## About
 
-Simple scheduler app. A project exploring how to use React front end UI library and various development environments such as Storybook and Webpack. Uses Jest and Cypress for extensive testing. 
+Simple scheduler app. A project exploring how to use React front end UI framework and various development environments such as Storybook and Webpack. Uses Jest and Cypress for extensive testing. 
 
 ## Screenshots
 
